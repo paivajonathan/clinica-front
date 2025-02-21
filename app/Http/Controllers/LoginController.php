@@ -19,7 +19,7 @@ class LoginController extends Controller
         $response = Http::post('http://localhost:8000/api/v1/auth/token/', $credentials);
         
         if ($response->successful()) {
-            session(['auth_data' => $response->json()]);
+            session(['authData' => $response->json()]);
             return redirect()->route('dashboard'); // Redireciona para a área logada
         }
         
