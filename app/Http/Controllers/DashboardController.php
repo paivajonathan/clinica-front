@@ -10,21 +10,21 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         if (!$request->session()->has("authData")) {
-            return redirect()->to("login");
+            return redirect()->route("login");
         }
 
         $userData = $request->session()->get("authData");
 
         if ($userData["user_role"]["user"]["role"] == "P")
         {
-            return redirect()->to("patient");
+            return redirect()->route("patient");
         }
         else if ($userData["user_role"]["user"]["role"] == "D")
         {
-            return redirect()->to("doctor");
+            return redirect()->route("doctor");
         }
 
-        return redirect()->to("login");
+        return redirect()->route("login");
     }
 
     public function patient(Request $request)
@@ -36,7 +36,7 @@ class DashboardController extends Controller
         $token = $authData["token"] ?? null;
     
         if (!$token) {
-            return redirect()->to("login");
+            return redirect()->route("login");
         }
     
         // Make API request with Bearer token

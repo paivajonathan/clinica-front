@@ -18,11 +18,14 @@
 
         @endif
     </div>
+    <h1>{{ $doctor['full_name'] }}</h1>
     <form action="{{ route("consultation.store") }}" method="post">
         @csrf
         @method("post")
         <input type="date" name="date"> <br>
         <input type="time" name="time"> <br>
+        <textarea name="observations"></textarea>
+        <input type="hidden" name="doctorId" value="{{ $doctor['id'] }}">
         <input type="submit" value="Enviar">
     </form>
 </body>

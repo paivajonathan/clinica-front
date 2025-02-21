@@ -9,39 +9,47 @@ class ConsultationController extends Controller
 {
     public function index(Request $request, int $doctorId)
     {
-        // Retrieve session data
         $authData = $request->session()->get("authData");
     
-        // Ensure token exists
         $token = $authData["token"] ?? null;
     
         if (!$token) {
-            return redirect()->to("login");
+            return redirect()->route("login");
         }
     
-        // Make API request with Bearer token
-        $response = Http::withToken($token)->get("http://localhost:8000/api/v1/users/$doctorId");
+        $response = Http::withToken($token)->get("http://localhost:8000/api/v1/users/doctor/$doctorId/");
     
-        if ($response->successful()) {
-            $doctor = $response->json();
-        } else {
-            $doctors = []; // Default to an empty array in case of failure
+        if (!$response->successful()) {
+            return redirect()->route("dashboard");
         }
-    
-        return view("dashboard-patient", compact("doctors"));
+        
+        $doctor = $response->json();
+        return view("consultation", compact("doctor"));
     }
 
     public function store(Request $request)
     {
-        $credentials = $request->only(['username', 'password']);
+        $authData = $request->session()->get("authData");
+    
+        $token = $authData["token"] ?? null;
+    
+        if (!$token) {
+            return redirect()->route("login");
+        }
 
-        $response = Http::post('http://localhost:8000/api/v1/auth/token/', $credentials);
+        $data = [
+            'date' => $request->date,
+            'time' => $request->time,
+            'observations' => $request->observations,
+            'doctor_id' => $request->doctorId,
+        ];
+
+        $response = Http::withToken($token)->post('http://localhost:8000/api/v1/consultations/', $data);
         
         if ($response->successful()) {
-            session(['authData' => $response->json()]);
             return redirect()->route('dashboard'); // Redireciona para a área logada
         }
         
-        return redirect()->route('login')->withErrors(['error' => 'Unknown error']);
+        return redirect()->route('consultation')->withErrors(['error' => 'Unknown error']);
     }
 }
