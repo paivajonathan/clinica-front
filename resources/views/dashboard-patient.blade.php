@@ -12,13 +12,23 @@
     <ul>
         @forelse($doctors as $doctor)
             <li>
-                {{ $doctor['user']['first_name'] }} - {{ $doctor['doctor']['specialty'] }}
-                <a href="{{ route('consultation', ['doctorId' => $doctor['doctor']['id']])  }}">Marcar Consulta</a>
+                {{ $doctor['full_name'] }} - {{ $doctor['specialty'] }}
+                <a href="{{ route('consultation', ['doctorId' => $doctor['id']])  }}">Marcar Consulta</a>
             </li>
         @empty
             <li>No doctors available</li>
         @endforelse
     </ul>
 
+    <h2>Pending Doctors</h2>
+    <ul>
+        @forelse($pendingDoctors as $doctor)
+            <li>
+                {{ $doctor['full_name'] }} - {{ $doctor['specialty'] }}
+            </li>
+        @empty
+            <li>No doctors available</li>
+        @endforelse
+    </ul>
 </body>
 </html>

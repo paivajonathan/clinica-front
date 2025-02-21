@@ -39,16 +39,15 @@ class DashboardController extends Controller
             return redirect()->route("login");
         }
     
-        // Make API request with Bearer token
-        $response = Http::withToken($token)->get('http://localhost:8000/api/v1/users/?role=D');
+        // Make API request with Bearer token    
+        $doctorsResponse = Http::withToken($token)->get('http://localhost:8000/api/v1/users/doctors/?has_pending_consultation=false');
+        $pendingDoctorsResponse = Http::withToken($token)->get('http://localhost:8000/api/v1/users/doctors/?has_pending_consultation=true');
     
-        if ($response->successful()) {
-            $doctors = $response->json();
-        } else {
-            $doctors = []; // Default to an empty array in case of failure
-        }
+        // Assign results, default to empty array in case of failure
+        $doctors = $doctorsResponse->successful() ? $doctorsResponse->json() : [];
+        $pendingDoctors = $pendingDoctorsResponse->successful() ? $pendingDoctorsResponse->json() : [];
     
-        return view("dashboard-patient", compact("doctors"));
+        return view("dashboard-patient", compact("doctors", "pendingDoctors"));
     }
 
     public function doctor(Request $request)
