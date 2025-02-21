@@ -13,6 +13,7 @@
         @forelse($doctors as $doctor)
             <li>
                 {{ $doctor['user']['first_name'] }} - {{ $doctor['doctor']['specialty'] }}
+                <a href="{{ route('consultation', ['id' => $doctor['doctor']['id']])  }}">Marcar Consulta</a>
             </li>
         @empty
             <li>No doctors available</li>
