@@ -46,7 +46,7 @@
                     </div>
                 </div>
             @empty
-                <p>No doctors available</p>
+                <p>Não há médicos disponíveis</p>
             @endforelse
         </div>
     </div>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             @empty
-                <div>No consultations available</div>
+                <div>Não há consultas pendentes</div>
             @endforelse
         </div>
     </div>

@@ -19,17 +19,17 @@
 
         @endif
     </div>
-    <div class="container">
+    <div class="container p-5">
         <form action="{{ route("login.store") }}" method="post">
             @csrf
             @method("post")
             <div class="form-group">
                 <label for="username">Usuário</label>
-                <input class="form-control" type="text" name="username" placeholder="Digite seu usuário..."> <br>
+                <input class="form-control" type="text" name="username" placeholder="Digite seu usuário..." required> <br>
             </div>
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input class="form-control" type="password" name="password" placeholder="Digite sua senha..."> <br>
+                <input class="form-control" type="password" name="password" placeholder="Digite sua senha..." required> <br>
             </div>
             <input class="btn btn-primary" type="submit" value="Enviar">
         </form>
