@@ -22,9 +22,9 @@
     <form action="{{ route("consultation.store") }}" method="post">
         @csrf
         @method("post")
-        <input type="date" name="date"> <br>
-        <input type="time" name="time"> <br>
-        <textarea name="observations"></textarea>
+        <input type="date" name="date" required> <br>
+        <input type="time" name="time" required> <br>
+        <textarea name="observations" required></textarea>
         <input type="hidden" name="doctorId" value="{{ $doctor['id'] }}">
         <input type="submit" value="Enviar">
     </form>

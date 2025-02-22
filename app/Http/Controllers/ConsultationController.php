@@ -71,4 +71,26 @@ class ConsultationController extends Controller
         
         return redirect()->route('dashboard')->withErrors(['error' => 'Unknown error']);
     }
+
+    public function history(Request $request)
+    {
+        $authData = $request->session()->get("authData");
+    
+        $token = $authData["token"] ?? null;
+    
+        if (!$token) {
+            return redirect()->route("login");
+        }
+
+        $patientId = $authData["user_role"]["patient"]["id"];
+    
+        $response = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/?patient_id=$patientId");
+    
+        if (!$response->successful()) {
+            return redirect()->route("dashboard");
+        }
+        
+        $consultations = $response->json();
+        return view("history", compact("consultations"));
+    }
 }

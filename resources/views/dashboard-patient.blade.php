@@ -35,5 +35,7 @@
             <div>No consultations available</div>
         @endforelse
     </ul>
+
+    <a href="{{ route("consultation.history") }}">Histórico</a>
 </body>
 </html>
