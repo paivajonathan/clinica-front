@@ -12,6 +12,7 @@ Route::get('/doctor', [DashboardController::class, 'doctor'])->name("doctor");
 
 Route::get('/login', [LoginController::class, 'index'])->name("login");
 Route::post('/login/store', [LoginController::class, 'store'])->name("login.store");
+Route::get('/login/destroy', [LoginController::class, 'destroy'])->name("login.destroy");
 
 Route::get('/register', [RegisterController::class, 'index'])->name("register");
 Route::post('/register/store', [RegisterController::class, 'store'])->name("register.store");
@@ -20,3 +21,4 @@ Route::get('/consultation/create/{doctorId}', [ConsultationController::class, 'i
 Route::post('/consultation/store', [ConsultationController::class, 'store'])->name("consultation.store");
 Route::put('/consultation/{consultationId}/cancel', [ConsultationController::class, 'cancel'])->name("consultation.cancel");
 Route::get('/consultation/history/', [ConsultationController::class, 'history'])->name("consultation.history");
+Route::get('/consultation/doctor/history/', [ConsultationController::class, 'doctorHistory'])->name("consultation.doctor.history");

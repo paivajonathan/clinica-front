@@ -12,7 +12,7 @@
     <ul>
         @forelse($consultations as $consultation)
             <div>
-                {{ $consultation["doctor_full_name"] }} - {{ $consultation['date'] }} - {{ $consultation['time'] }} - {{ $consultation["status"] }}
+                {{ $consultation["patient_full_name"] }} - {{ $consultation['date'] }} - {{ $consultation['time'] }} - {{ $consultation["status"] }}
             </div>
         @empty
             <div>No history available</div>

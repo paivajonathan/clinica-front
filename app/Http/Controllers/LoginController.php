@@ -25,4 +25,11 @@ class LoginController extends Controller
         
         return redirect()->route('login')->withErrors(['error' => 'Unknown error']);
     }
+
+    public function destroy(Request $request)
+    {
+        $request->session()->forget('authData');
+    
+        return redirect()->route('login');
+    }
 }

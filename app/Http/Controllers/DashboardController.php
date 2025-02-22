@@ -54,6 +54,22 @@ class DashboardController extends Controller
 
     public function doctor(Request $request)
     {
-        return view("dashboard-doctor");
+        // Retrieve session data
+        $authData = $request->session()->get("authData");
+    
+        // Ensure token exists
+        $token = $authData["token"] ?? null;
+    
+        if (!$token) {
+            return redirect()->route("login");
+        }
+
+        $doctorId = $authData["user_role"]["doctor"]["id"];
+    
+        $pendingConsultationsResponse = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/?doctor_id=$doctorId&status=S");
+    
+        $pendingConsultations = $pendingConsultationsResponse->successful() ? $pendingConsultationsResponse->json() : [];
+    
+        return view("dashboard-doctor", compact("pendingConsultations"));
     }
 }

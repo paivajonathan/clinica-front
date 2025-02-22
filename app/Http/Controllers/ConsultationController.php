@@ -93,4 +93,26 @@ class ConsultationController extends Controller
         $consultations = $response->json();
         return view("history", compact("consultations"));
     }
+
+    public function doctorHistory(Request $request)
+    {
+        $authData = $request->session()->get("authData");
+    
+        $token = $authData["token"] ?? null;
+    
+        if (!$token) {
+            return redirect()->route("login");
+        }
+
+        $doctorId = $authData["user_role"]["doctor"]["id"];
+    
+        $response = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/?doctor_id=$doctorId");
+    
+        if (!$response->successful()) {
+            return redirect()->route("dashboard");
+        }
+        
+        $consultations = $response->json();
+        return view("history-doctor", compact("consultations"));
+    }
 }

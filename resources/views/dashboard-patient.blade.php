@@ -6,6 +6,7 @@
     <title>Dashboard - Patient</title>
 </head>
 <body>
+    <a href="{{ route("login.destroy") }}">Logout</a>
     <h1>Welcome to the Patient Dashboard</h1>
 
     <h2>Available Doctors</h2>
@@ -24,7 +25,7 @@
     <ul>
         @forelse($pendingConsultations as $pendingConsultation)
             <div>
-                {{ $pendingConsultation['date'] }} - {{ $pendingConsultation['time'] }} - {{ $pendingConsultation["status"] }}
+                {{ $pendingConsultation["doctor_full_name"] }} - {{ $pendingConsultation['date'] }} - {{ $pendingConsultation['time'] }} - {{ $pendingConsultation["status"] }}
                 <form action="{{ route("consultation.cancel", ["consultationId" => $pendingConsultation["id"]]) }}" method="post">
                     @csrf
                     @method("put")
