@@ -4,9 +4,8 @@ composer global require hirak/prestissimo
 composer install --no-dev --working-dir=/var/www/html
 
 echo "Setting permissions for database folder..."
-mkdir -p /var/www/html/database
-chmod -R 777 /var/www/html/database
-chown -R www-data:www-data /var/www/html/database
+sudo chown -R :www-data /var/www/html
+sudo chmod -R 775 /var/www/html/database
 
 echo "Generating application key..."
 php artisan key:generate --show
