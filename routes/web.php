@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name("dashboard");
@@ -22,3 +23,6 @@ Route::post('/consultation/store', [ConsultationController::class, 'store'])->na
 Route::put('/consultation/{consultationId}/cancel', [ConsultationController::class, 'cancel'])->name("consultation.cancel");
 Route::get('/consultation/history/', [ConsultationController::class, 'history'])->name("consultation.history");
 Route::get('/consultation/doctor/history/', [ConsultationController::class, 'doctorHistory'])->name("consultation.doctor.history");
+
+Route::get('/attendance/create/{patientId}/{consultationId}', [AttendanceController::class, 'index'])->name("attendance");
+Route::post('/attendance/store', [AttendanceController::class, 'store'])->name("attendance.store");

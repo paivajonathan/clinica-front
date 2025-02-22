@@ -14,11 +14,7 @@
         @forelse($pendingConsultations as $pendingConsultation)
             <div>
                 {{ $pendingConsultation["patient_full_name"] }} - {{ $pendingConsultation['date'] }} - {{ $pendingConsultation['time'] }} - {{ $pendingConsultation["status"] }}
-                <!-- <form action="{{ route("consultation.cancel", ["consultationId" => $pendingConsultation["id"]]) }}" method="post">
-                    @csrf
-                    @method("put")
-                    <input type="submit" value="Cancelar Consulta" onclick="confirm('Certeza que deseja cancelar?')">
-                </form> -->
+                <a href="{{ route("attendance", ["patientId" => $pendingConsultation["patient_id"], "consultationId" => $pendingConsultation["id"]]) }}">Cadastrar atendimento</a>
             </div>
         @empty
             <div>No consultations available</div>
