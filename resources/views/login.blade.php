@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -18,16 +19,25 @@
 
         @endif
     </div>
-    <form action="{{ route("login.store") }}" method="post">
-        @csrf
-        @method("post")
-        <input type="text" name="username" placeholder="Digite seu usuário..."> <br>
-        <input type="password" name="password" placeholder="Digite sua senha..."> <br>
-        <input type="submit" value="Enviar">
-    </form>
-    <p>
-        Ainda não possui cadastro? <a href="{{ route("register") }}">Cadastrar-se</a>
-    </p>
+    <div class="container">
+        <form action="{{ route("login.store") }}" method="post">
+            @csrf
+            @method("post")
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <input class="form-control" type="text" name="username" placeholder="Digite seu usuário..."> <br>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input class="form-control" type="password" name="password" placeholder="Digite sua senha..."> <br>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Enviar">
+        </form>
+        <p>
+            Ainda não possui cadastro? <a href="{{ route("register") }}">Cadastrar-se</a>
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
