@@ -18,3 +18,5 @@ Route::post('/register/store', [RegisterController::class, 'store'])->name("regi
 
 Route::get('/consultation/{doctorId}', [ConsultationController::class, 'index'])->name("consultation");
 Route::post('/consultation/store', [ConsultationController::class, 'store'])->name("consultation.store");
+Route::put('/consultation/{consultationId}/cancel', [ConsultationController::class, 'cancel'])->name("consultation.cancel");
+// Route::get('/consultation/history/', [ConsultationController::class, 'history'])->name("consultation.history");

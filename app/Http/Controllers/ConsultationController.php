@@ -52,4 +52,23 @@ class ConsultationController extends Controller
         
         return redirect()->route('consultation')->withErrors(['error' => 'Unknown error']);
     }
+
+    public function cancel(Request $request, int $consultationId)
+    {
+        $authData = $request->session()->get("authData");
+    
+        $token = $authData["token"] ?? null;
+    
+        if (!$token) {
+            return redirect()->route("login");
+        }
+
+        $response = Http::withToken($token)->put("http://localhost:8000/api/v1/consultations/$consultationId/cancel/");
+        
+        if ($response->successful()) {
+            return redirect()->route('dashboard'); // Redireciona para a área logada
+        }
+        
+        return redirect()->route('dashboard')->withErrors(['error' => 'Unknown error']);
+    }
 }

@@ -20,14 +20,19 @@
         @endforelse
     </ul>
 
-    <h2>Pending Doctors</h2>
+    <h2>Pending Consultations</h2>
     <ul>
-        @forelse($pendingDoctors as $doctor)
-            <li>
-                {{ $doctor['full_name'] }} - {{ $doctor['specialty'] }}
-            </li>
+        @forelse($pendingConsultations as $pendingConsultation)
+            <div>
+                {{ $pendingConsultation['date'] }} - {{ $pendingConsultation['time'] }} - {{ $pendingConsultation["status"] }}
+                <form action="{{ route("consultation.cancel", ["consultationId" => $pendingConsultation["id"]]) }}" method="post">
+                    @csrf
+                    @method("put")
+                    <input type="submit" value="Cancelar Consulta" onclick="confirm('Certeza que deseja cancelar?')">
+                </form>
+            </div>
         @empty
-            <li>No doctors available</li>
+            <div>No consultations available</div>
         @endforelse
     </ul>
 </body>
