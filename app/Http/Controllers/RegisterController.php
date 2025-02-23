@@ -30,7 +30,7 @@ class RegisterController extends Controller
             ]
         ];
 
-        $response = Http::post('http://localhost:8000/api/v1/users/patient/register/', $data);
+        $response = Http::post(config('app.api_url') . '/api/v1/users/patient/register/', $data);
 
         if ($response->successful()) {
             return redirect()->route('login'); // Redireciona para a área logada

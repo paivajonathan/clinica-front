@@ -16,7 +16,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only(['username', 'password']);
 
-        $response = Http::post('http://localhost:8000/api/v1/auth/token/', $credentials);
+        $response = Http::post(config('app.api_url') . '/api/v1/auth/token/', $credentials);
         
         if ($response->successful()) {
             session(['authData' => $response->json()]);

@@ -2,6 +2,10 @@
 
 return [
 
+    'api_url' => env('APP_ENV') === 'production' 
+        ? 'https://clinica-api-dg4v.onrender.com' 
+        : 'http://127.0.0.1:8000',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

@@ -17,7 +17,7 @@ class ConsultationController extends Controller
             return redirect()->route("login");
         }
     
-        $response = Http::withToken($token)->get("http://localhost:8000/api/v1/users/doctor/$doctorId/");
+        $response = Http::withToken($token)->get(config('app.api_url') . "/api/v1/users/doctor/$doctorId/");
     
         if (!$response->successful()) {
             return redirect()->route("dashboard");
@@ -44,7 +44,7 @@ class ConsultationController extends Controller
             'doctor_id' => $request->doctorId,
         ];
 
-        $response = Http::withToken($token)->post('http://localhost:8000/api/v1/consultations/', $data);
+        $response = Http::withToken($token)->post(config('app.api_url') . '/api/v1/consultations/', $data);
         
         if ($response->successful()) {
             return redirect()->route('dashboard'); // Redireciona para a área logada
@@ -63,7 +63,7 @@ class ConsultationController extends Controller
             return redirect()->route("login");
         }
 
-        $response = Http::withToken($token)->put("http://localhost:8000/api/v1/consultations/$consultationId/cancel/");
+        $response = Http::withToken($token)->put(config('app.api_url') . "/api/v1/consultations/$consultationId/cancel/");
         
         if ($response->successful()) {
             return redirect()->route('dashboard'); // Redireciona para a área logada
@@ -84,7 +84,7 @@ class ConsultationController extends Controller
 
         $patientId = $authData["user_role"]["patient"]["id"];
     
-        $response = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/?patient_id=$patientId");
+        $response = Http::withToken($token)->get(config('app.api_url') . "/api/v1/consultations/?patient_id=$patientId");
     
         if (!$response->successful()) {
             return redirect()->route("dashboard");
@@ -106,7 +106,7 @@ class ConsultationController extends Controller
 
         $doctorId = $authData["user_role"]["doctor"]["id"];
     
-        $response = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/?doctor_id=$doctorId");
+        $response = Http::withToken($token)->get(config('app.api_url') . "/api/v1/consultations/?doctor_id=$doctorId");
     
         if (!$response->successful()) {
             return redirect()->route("dashboard");

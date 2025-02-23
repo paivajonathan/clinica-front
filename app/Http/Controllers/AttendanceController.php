@@ -17,8 +17,8 @@ class AttendanceController extends Controller
             return redirect()->route("login");
         }
     
-        $patientResponse = Http::withToken($token)->get("http://localhost:8000/api/v1/users/patient/$patientId/");
-        $consultationsResponse = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/$consultationId/");    
+        $patientResponse = Http::withToken($token)->get(config('app.api_url') . "/api/v1/users/patient/$patientId/");
+        $consultationsResponse = Http::withToken($token)->get(config('app.api_url') . "/api/v1/consultations/$consultationId/");    
 
         if (!$patientResponse->successful() || !$consultationsResponse->successful()) {
             return redirect()->route("dashboard");
@@ -45,7 +45,7 @@ class AttendanceController extends Controller
             'consultation_id' => $request->consultationId,
         ];
 
-        $response = Http::withToken($token)->post('http://localhost:8000/api/v1/attendances/', $data);
+        $response = Http::withToken($token)->post(config('app.api_url') . '/api/v1/attendances/', $data);
         
         if ($response->successful()) {
             return redirect()->route('dashboard'); // Redireciona para a área logada

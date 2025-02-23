@@ -42,8 +42,8 @@ class DashboardController extends Controller
         $patientId = $authData["user_role"]["patient"]["id"];
     
         // Make API request with Bearer token    
-        $doctorsResponse = Http::withToken($token)->get('http://localhost:8000/api/v1/users/doctors/?has_pending_consultation=false');
-        $pendingConsultationsResponse = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/?patient_id=$patientId&status=S");
+        $doctorsResponse = Http::withToken($token)->get(config('app.api_url') . '/api/v1/users/doctors/?has_pending_consultation=false');
+        $pendingConsultationsResponse = Http::withToken($token)->get(config('app.api_url') . "/api/v1/consultations/?patient_id=$patientId&status=S");
     
         // Assign results, default to empty array in case of failure
         $doctors = $doctorsResponse->successful() ? $doctorsResponse->json() : [];
@@ -66,7 +66,7 @@ class DashboardController extends Controller
 
         $doctorId = $authData["user_role"]["doctor"]["id"];
     
-        $pendingConsultationsResponse = Http::withToken($token)->get("http://localhost:8000/api/v1/consultations/?doctor_id=$doctorId&status=S");
+        $pendingConsultationsResponse = Http::withToken($token)->get(config('app.api_url') . "/api/v1/consultations/?doctor_id=$doctorId&status=S");
     
         $pendingConsultations = $pendingConsultationsResponse->successful() ? $pendingConsultationsResponse->json() : [];
     
